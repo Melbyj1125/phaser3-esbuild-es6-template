@@ -55,7 +55,7 @@ class StartScene extends Phaser.Scene {
     )
 
     // Add a callback when a key is released
-    this.input.keyboard.on('keyup', this.keyReleased, this)
+    // this.input.keyboard.on('keyup', this.keyReleased, this)
 
     // Add some sprites
     this.witch = new Witch(this, 100, 100)
@@ -78,9 +78,29 @@ class StartScene extends Phaser.Scene {
     this.slime2.anims.play('slimeWalkHoriz')
     this.slime2.setFlipX(true)
 
+    this.cursors = this.input.keyboard.createCursorKeys()
+
     // Load and play background music
     // this.music = this.sound.addAudioSprite('gameAudio')
     // this.music.play('freeVertexStudioTrack1')
+  }
+
+  update () {
+    const direction = { x: 0, y: 0 }
+    if (this.cursors.right.isDown) {
+      direction.x += 1
+    }
+    if (this.cursors.left.isDown) {
+      direction.x -= 1
+    }
+    if (this.cursors.up.isDown) {
+      direction.y -= 1
+    }
+    if (this.cursors.down.isDown) {
+      direction.y += 1
+    }
+
+    this.witch.move(direction.x, direction.y)
   }
 
   keyReleased () {

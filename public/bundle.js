@@ -73326,7 +73326,8 @@
   const CONFIG = {
     DEFAULT_HEIGHT: 666,
     DEFAULT_WIDTH: 1e3,
-    DEFAULT_GRAVITY: 200
+    DEFAULT_GRAVITY: 200,
+    WALK_SPEED: 100
   };
   var config_default = CONFIG;
 
@@ -73376,18 +73377,40 @@
 
   // src/sprites/Witch.js
   const phaser6 = __toModule(require_phaser());
-  class WitchSprite extends phaser6.default.GameObjects.Sprite {
+  class WitchSprite extends phaser6.default.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
       super(scene, x, y, "witch", 1);
       if (!WitchSprite.animInitialized) {
         WitchSprite.setupAnim(scene);
       }
+      scene.physics.world.enableBody(this, phaser6.default.Physics.Arcade.DYNAMIC_BODY);
+      this.setImmovable(true);
+      this.body.setAllowGravity(false);
+      this.body.setCollideWorldBounds(true);
       scene.add.existing(this);
+    }
+    move(x, y) {
+      if (Math.abs(x) > 0) {
+        this.anims.play("witchWalkHoriz", true);
+        if (x < 0) {
+          this.setFlipX(true);
+        } else {
+          this.setFlipX(false);
+        }
+      } else {
+        if (y < 0) {
+          this.anims.play("witchWalkUp", true);
+        } else if (y > 0) {
+          this.anims.play("witchWalkDown", true);
+        } else {
+          this.anims.play("witchIdle", true);
+        }
+      }
+      this.setVelocity(x * config_default.WALK_SPEED, y * config_default.WALK_SPEED);
     }
   }
   WitchSprite.animInitialized = false;
   WitchSprite.setupAnim = (scene) => {
-    console.log("Creating witch animation");
     scene.anims.create({
       key: "witchWalkDown",
       frameRate: 10,
@@ -73405,6 +73428,12 @@
       frameRate: 10,
       repeat: -1,
       frames: scene.anims.generateFrameNumbers("witch", {start: 16, end: 23})
+    });
+    scene.anims.create({
+      key: "witchIdle",
+      frameRate: 1,
+      repeat: -1,
+      frames: scene.anims.generateFrameNumbers("witch", {start: 1, end: 2})
     });
     WitchSprite.animInitialized = true;
   };
@@ -73458,7 +73487,6 @@
       this.loadingText.destroy();
       const startScreen = this.add.image(config_default.DEFAULT_WIDTH / 2, config_default.DEFAULT_HEIGHT / 2, "StartScreen");
       startScreen.setScale(config_default.DEFAULT_WIDTH / startScreen.width, config_default.DEFAULT_HEIGHT / startScreen.height);
-      this.input.keyboard.on("keyup", this.keyReleased, this);
       this.witch = new Witch_default(this, 100, 100);
       this.witch1 = new Witch_default(this, 200, 200);
       this.witch2 = new Witch_default(this, 200, 100);
@@ -73473,6 +73501,23 @@
       this.slime1.anims.play("slimeWalkHoriz");
       this.slime2.anims.play("slimeWalkHoriz");
       this.slime2.setFlipX(true);
+      this.cursors = this.input.keyboard.createCursorKeys();
+    }
+    update() {
+      const direction = {x: 0, y: 0};
+      if (this.cursors.right.isDown) {
+        direction.x += 1;
+      }
+      if (this.cursors.left.isDown) {
+        direction.x -= 1;
+      }
+      if (this.cursors.up.isDown) {
+        direction.y -= 1;
+      }
+      if (this.cursors.down.isDown) {
+        direction.y += 1;
+      }
+      this.witch.move(direction.x, direction.y);
     }
     keyReleased() {
       console.log("Key released");

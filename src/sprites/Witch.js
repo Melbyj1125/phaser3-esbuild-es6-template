@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import CONFIG from '../config.js'
 
 // Witch sprite object that adds itself to the given scene
-class WitchSprite extends Phaser.GameObjects.Sprite {
+class WitchSprite extends Phaser.Physics.Arcade.Sprite {
   constructor (scene, x, y) {
     // Pass parameters to parent's constructor
     super(scene, x, y, 'witch', 1)
@@ -12,8 +12,35 @@ class WitchSprite extends Phaser.GameObjects.Sprite {
       WitchSprite.setupAnim(scene)
     }
 
+    // Enable physics
+    scene.physics.world.enableBody(this, Phaser.Physics.Arcade.DYNAMIC_BODY)
+    this.setImmovable(true)
+    this.body.setAllowGravity(false)
+    this.body.setCollideWorldBounds(true)
+
     // Add self to the given scene
     scene.add.existing(this)
+  }
+
+  move (x, y) {
+    if (Math.abs(x) > 0) {
+      this.anims.play('witchWalkHoriz', true)
+      if (x < 0) {
+        this.setFlipX(true)
+      } else {
+        this.setFlipX(false)
+      }
+    } else {
+      if (y < 0) {
+        this.anims.play('witchWalkUp', true)
+      } else if (y > 0) {
+        this.anims.play('witchWalkDown', true)
+      } else {
+        this.anims.play('witchIdle', true)
+      }
+    }
+
+    this.setVelocity(x * CONFIG.WALK_SPEED, y * CONFIG.WALK_SPEED)
   }
 }
 
@@ -41,6 +68,13 @@ WitchSprite.setupAnim = (scene) => {
     frameRate: 10,
     repeat: -1,
     frames: scene.anims.generateFrameNumbers('witch', { start: 16, end: 23 })
+  })
+
+  scene.anims.create({
+    key: 'witchIdle',
+    frameRate: 1,
+    repeat: -1,
+    frames: scene.anims.generateFrameNumbers('witch', { start: 1, end: 2 })
   })
 
   // Indicate that the animation has been setup
