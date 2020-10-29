@@ -73362,7 +73362,7 @@
       emitter.startFollow(logo);
       this.input.keyboard.on("keyup", this.keyReleased, this);
       this.music = this.sound.addAudioSprite("gameAudio");
-      this.music.play("freeVertexStudioTrack2");
+      this.music.play("BGMTrack2");
       this.sfx = this.sound.addAudioSprite("gameAudio");
       this.scene.run("HUDScene");
     }
@@ -73487,6 +73487,7 @@
       this.loadingText.destroy();
       const startScreen = this.add.image(config_default.DEFAULT_WIDTH / 2, config_default.DEFAULT_HEIGHT / 2, "StartScreen");
       startScreen.setScale(config_default.DEFAULT_WIDTH / startScreen.width, config_default.DEFAULT_HEIGHT / startScreen.height);
+      this.input.keyboard.on("keyup", this.keyReleased, this);
       this.witch = new Witch_default(this, 100, 100);
       this.witch1 = new Witch_default(this, 200, 200);
       this.witch2 = new Witch_default(this, 200, 100);
@@ -73502,6 +73503,8 @@
       this.slime2.anims.play("slimeWalkHoriz");
       this.slime2.setFlipX(true);
       this.cursors = this.input.keyboard.createCursorKeys();
+      this.music = this.sound.addAudioSprite("gameAudio");
+      this.music.play("BGMTrack1");
     }
     update() {
       const direction = {x: 0, y: 0};

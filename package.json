@@ -4,7 +4,7 @@
   "description": "Phaser 3 + ESBuild + ES6 Template Project",
   "scripts": {
     "dev": "node devServer.js",
-    "audio": "audiosprite --loop freeVertexStudioTrack1 --loop freeVertexStudioTrack2 --output public/assets/audio/gameAudioSprite raw_assets/audio/*.mp3",
+    "audio": "audiosprite --loop BGMTrack1 --loop BGMTrack2 --loop Stage1 --loop Stage2 --loop footstepsSound --output public/assets/audio/gameAudioSprite raw_assets/audio/*.mp3 raw_assets/audio/*.wav",
     "build": "esbuild --bundle src/main.js --outfile=public/bundle.js --minify"
   },
   "repository": {
