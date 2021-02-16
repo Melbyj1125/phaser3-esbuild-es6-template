@@ -73386,6 +73386,8 @@
       this.load.image("sky", "assets/skies/space3.png");
       this.load.image("logo", "assets/sprites/phaser3-logo.png");
       this.load.image("red", "assets/particles/red.png");
+      this.load.spritesheet("witch", "assets/sprites/WitchWalk.png");
+      this.load.spritesheet("witch", "assets/sprites/Slime.png");
       this.load.audioSprite("gameAudio", "assets/audio/gameAudioSprite.json", [
         "assets/audio/gameAudioSprite.ogg",
         "assets/audio/gameAudioSprite.m4a",
@@ -73401,6 +73403,8 @@
       const startScreen = this.add.image(config_default.DEFAULT_WIDTH / 2, config_default.DEFAULT_HEIGHT / 2, "StartScreen");
       startScreen.setScale(config_default.DEFAULT_WIDTH / startScreen.width, config_default.DEFAULT_HEIGHT / startScreen.height);
       this.input.keyboard.on("keyup", this.keyReleased, this);
+      this.add.sprite(100, 100, "witch", 1);
+      this.add.sprite(300, 300, "slime", 1);
       this.music = this.sound.addAudioSprite("gameAudio");
       this.music.play("freeVertexStudioTrack1");
     }

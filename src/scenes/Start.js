@@ -20,6 +20,10 @@ class StartScene extends Phaser.Scene {
     this.load.image('logo', 'assets/sprites/phaser3-logo.png')
     this.load.image('red', 'assets/particles/red.png')
 
+    // Loads spritesheets animations
+    this.load.spritesheet('witch', 'assets/sprites/WitchWalk.png')
+    this.load.spritesheet('witch', 'assets/sprites/Slime.png')
+
     // Pre-load the entire audio sprite
     this.load.audioSprite('gameAudio', 'assets/audio/gameAudioSprite.json', [
       'assets/audio/gameAudioSprite.ogg',
@@ -47,6 +51,10 @@ class StartScene extends Phaser.Scene {
 
     // Add a callback when a key is released
     this.input.keyboard.on('keyup', this.keyReleased, this)
+    
+    //add a sprite
+    this.add.sprite(100,100,'witch', 1)
+    this.add.sprite(300,300, 'slime', 1)
 
     // Load and play background music
     this.music = this.sound.addAudioSprite('gameAudio')
