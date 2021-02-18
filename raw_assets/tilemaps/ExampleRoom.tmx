@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="23" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="49">
+ <editorsettings>
+  <export target="../../public/assets/tilemaps/ExampleRoom.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="Props" tilewidth="64" tileheight="60" tilecount="4" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="59" height="60" source="../mapImages/chest.png"/>
+  </tile>
+  <tile id="1">
+   <image width="60" height="60" source="../mapImages/Crate.png"/>
+  </tile>
+  <tile id="2">
+   <image width="64" height="57" source="../mapImages/fence.png"/>
+  </tile>
+  <tile id="3">
+   <image width="64" height="60" source="../mapImages/Sign.png"/>
+  </tile>
+ </tileset>
+ <imagelayer id="2" name="Floor">
+  <image source="../mapImages/floor.png" width="512" height="361"/>
+ </imagelayer>
+ <objectgroup id="3" name="FloorProps">
+  <object id="37" name="Chest" type="HumanProps" gid="1" x="95.2718" y="122.877" width="59" height="60"/>
+  <object id="38" name="Fence2" type="HumanProps" gid="3" x="357.821" y="247.457" width="64" height="57"/>
+  <object id="39" name="Fence1" type="HumanProps" gid="3" x="298.956" y="247.457" width="64" height="57"/>
+  <object id="41" name="Crate1" type="HumanProps" gid="2" x="222.468" y="122.877" width="60" height="60"/>
+  <object id="42" name="Crate2" type="HumanProps" gid="2" x="285.258" y="124.185" width="60" height="60"/>
+  <object id="43" name="Sign" type="HumanProps" gid="4" x="94.8881" y="289.009" width="64" height="60"/>
+  <object id="44" name="Chest" type="HumanProps" gid="1" x="853.984" y="-65.4931" width="59" height="60"/>
+ </objectgroup>
+ <objectgroup id="4" name="Colliders" visible="0">
+  <object id="23" name="BackWall" type="Wall" x="6.54062" y="5.2325" width="501.012" height="27.4706"/>
+  <object id="25" name="LeftWall" type="Wall" x="-1.30812" y="2.61625" width="31.395" height="351.886"/>
+  <object id="26" name="RightWall" type="Wall" x="487.931" y="13.0812" width="23.5462" height="342.729"/>
+  <object id="35" name="Exit" type="Exit" x="1.30812" y="354.502" width="511.477" height="58.8656"/>
+  <object id="45" name="ChestCollision" type="Colliders" x="96.8012" y="86.3362" width="54.9412" height="32.7031"/>
+  <object id="46" name="CrateCollision" type="Colliders" x="223.689" y="86.3362" width="116.423" height="34.0112"/>
+  <object id="47" name="SignCollision" type="Colliders" x="124.272" y="273.398" width="10.465" height="14.3894"/>
+  <object id="48" name="Fence Collision" type="Colliders" x="299.561" y="227.614" width="116.423" height="10.465"/>
+ </objectgroup>
+</map>
